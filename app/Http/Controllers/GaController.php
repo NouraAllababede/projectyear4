@@ -28,5 +28,6 @@ class GaController extends Controller
         $game = $this->gameService->getGameById($id);
         return view('games.show', compact('game'));
     }
+    
 }
 

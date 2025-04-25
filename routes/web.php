@@ -16,16 +16,18 @@ use App\Http\Controllers\Filament ;
 
 
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 /*
 Route::get('/scrap',[App\Http\Controllers\ScrapController::class,'scrap']) ;
 Route::get('/fetch',[App\Http\Controllers\ScrapController::class,'fetchGames']) ;
 Route::get('/import',[App\Http\Controllers\ScrapController::class,'importData']) ;
 */
-
+Route::get('/', function () {
+    return redirect('/admin');
+});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

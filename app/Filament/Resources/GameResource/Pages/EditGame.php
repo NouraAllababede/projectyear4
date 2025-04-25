@@ -16,4 +16,7 @@ class EditGame extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-}
+
+   
+    }
+

@@ -18,11 +18,15 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Tables\Columns\TextColumn ; 
-
+use Filament\Tables\Columns\ImageColumn ;
+use Illuminate\Support\Facades\Storage ;
 
 class GameResource extends Resource
 {
     protected static ?string $model = Game::class;
+    protected static ?string $label = 'Games' ;
+
+    protected static ?string $pluralLabel = 'Games' ;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -32,27 +36,39 @@ class GameResource extends Resource
 
                 ->schema([
 
-                    TextInput::make('title')->required(),
+                    TextInput::make('title')->required()    
+                ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);'])
+                    ,
                     Select::make('category_id')->label('Category')
-                    ->options(Category::all()->pluck('title', 'id')->toArray()) ,// استخدم toArray() هنا
-                   
+                    ->options(Category::all()->pluck('title', 'id')->toArray()) // استخدم toArray() هنا
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+
                     TextInput::make('size') // إضافة حقل size
                     ->label('Size') // تعيين الاسم
                     ->type('number') // تعيين نوع الإدخال إلى number
                     ->step(0.01)
                     ->required() // إذا كنت تريد أن يكون الحقل مطلوبًا
-                    ->placeholder('Enter size in double'), 
+                    ->placeholder('Enter size in double')
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+                     
                 
-                  FileUpload::make('image')
+                    FileUpload::make('image')
                     ->label('UploadImages') 
+                    ->disk('public')
+                    ->directory('games/images')
                     ->multiple()
                     ->acceptedFileTypes(['image/*']) // قبول أنواع ملفات الصور فقط
                     ->maxSize(1024) // الحد الأقصى لحجم الملف (1 ميجابايت في هذا المثال)
-                   ->required(),
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);'])
+                    ->required() ,
 
     
-                    MarkdownEditor::make('description')->required(),
-                    TextInput::make('url_video')->required(),
+                    MarkdownEditor::make('description')->required()           
+                             ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+                    
+                    TextInput::make('url_video')->required()
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
 
                     Select::make('type')
                     ->label('Type')
@@ -62,7 +78,9 @@ class GameResource extends Resource
                     ])
                     ->reactive()
                     ->afterStateUpdated(fn(callable $set)=>$set('price',null))
-                    ->required(),
+                    ->required()
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+                    
 
                     TextInput::make('price') // إضافة حقل price
                       ->numeric() // التأكد من أن الإدخال هو عدد
@@ -71,32 +89,45 @@ class GameResource extends Resource
                      ->regex('/^\d+(\.\d{1,2})?$/') // تعبير منتظم للسماح برقم عشري برقمين بعد الفاصلة
                      ->helperText('أدخل رقم عشري برقمين بعد الفاصلة مثل: 12.34')
                      ->required(fn(callable $get)=> $get('type') === 'payment')
-                     ->disabled(fn(callable $get)=> $get('type') === 'freement') ,// التأكد من أن الحقل مطلوب,
-        
+                     ->disabled(fn(callable $get)=> $get('type') === 'freement') // التأكد من أن الحقل مطلوب,
+                     ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);'])
+
                     
         
-                    ]); 
+                    ])
+                    ; 
                 }
-       
+        
          
      
     public static function table(Table $table): Table
     {
         return $table
               ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('description'),
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('description')->html()->extraAttributes(['style'=>'white-space:normal;word-wrap:break-word;']) 
+            ,
                 TextColumn::make('size'),
+                ImageColumn::make('image')
+              ->label('image')
+              ->url(fn($record)=> Storage::url($record->image[0]) )
+              ->default(fn($record)=>$record->name)
+              ->size(50)
+          ,
+
                 TextColumn::make('price'),
                 TextColumn::make('type'),
                 TextColumn::make('category.title')
                 ->label('category')
-                ->searchable(),
-                
-            ])
+                ->searchable()
+
+                ])
+          
             ->filters([
                 //
             ])
+            
+
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -107,7 +138,8 @@ class GameResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
-            ]);
+            ])
+            ;
     }
     
     public static function getRelations(): array
