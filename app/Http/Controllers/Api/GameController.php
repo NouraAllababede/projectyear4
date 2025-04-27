@@ -74,7 +74,7 @@ public function search(Request $request) {
             $q->where('gender', $gender);
         });
     }
-
+   
     if ($age) {
         // تحقق مما إذا كان العمر ضمن الفئات المحددة
         if ($age >= 6 && $age <= 12) {

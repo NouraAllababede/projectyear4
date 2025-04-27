@@ -20,6 +20,7 @@ class AllGameResource extends JsonResource
             'image'=>$this->image ,
             'size'=>$this->size ,
             'description'=>$this->description ,
+           // 'url_download'=>$this->url_download ,
             'url_video'=>$this->url_video ,
             'price'=>$this->price ,
             'category'=>$this->category->title ,

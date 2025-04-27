@@ -24,7 +24,8 @@ class Game extends Model
        'url_video',
        'category_id',
        'price',
-       	'type'
+       	'type',
+       // 'url_download'
     ] ;
 
     protected $casts = ['image'=> 'array'] ; 
@@ -40,6 +41,10 @@ class Game extends Model
             }
         });
     } 
+    
+    public function users(){
+        return $this->belongsToMany(User::class,'user-games') ;
+    }
 
     public function user_games(){
         return $this->hasMany(User_game::class,) ;
@@ -53,7 +58,5 @@ class Game extends Model
         return $this->hasMany(Reviewing::class) ;
     }
 
-    public function users(){
-        return $this->belongsToMany(User::class,'user-games') ;
-    }
+   
 }

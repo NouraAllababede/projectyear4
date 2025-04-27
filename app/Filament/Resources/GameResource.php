@@ -65,16 +65,18 @@ class GameResource extends Resource
 
     
                     MarkdownEditor::make('description')->required()           
-                             ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
-                    
+,                    
                     TextInput::make('url_video')->required()
                     ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
 
+                    /*TextInput::make('url_download')->required()
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+*/
                     Select::make('type')
                     ->label('Type')
                     ->options([
-                        'freement' => 'مجاني',
-                        'payment' => 'مدفوع',
+                        'freement' => 'freement',
+                        'payment' => 'payment',
                     ])
                     ->reactive()
                     ->afterStateUpdated(fn(callable $set)=>$set('price',null))

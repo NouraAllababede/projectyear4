@@ -13,8 +13,18 @@ class UserController extends Controller
 
     public function UpdateUserName(request $request)
     {
+
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'email'=>'required|string|email|max:255|unique:users,email'
+        ]);
+
          $user = User::where('uuid',$request->uuid)->first() ;
-         $user->name = $request->name ; 
+         if(!$user){
+            return response()->json(['message'=>'User not found'],404) ;
+         }
+         $user->name = $request->name ;
+         $user->email =$request->email ;
          $user->save ;
          $data = [
             'name'=> $user->name ,
