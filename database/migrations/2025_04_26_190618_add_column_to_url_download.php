@@ -15,7 +15,7 @@ return new class extends Migration
            $table->string('url_download') ;
             $table->text('long_description') ; 
             $table->integer('Memory') ;
-            $table->integer('Storage') ;
+            $table->double('Storage') ;
              $table->string('Developed_by') ;
              $table->string('Platform') ;
              $table->enum('status',['Live','NotLive'])->default('Live') ;

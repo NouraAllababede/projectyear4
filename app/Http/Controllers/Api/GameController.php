@@ -14,6 +14,7 @@ use App\Http\Resources\MostFollowResource ;
 use App\Http\Resources\GameResource2 ;
 
 
+
 class GameController extends Controller
 {
     use GeneralTrait;
@@ -66,6 +67,8 @@ public function search(Request $request) {
     $age = $request->input('age');
     $minRating = $request->input('min_rating');
     $maxRating = $request->input('max_rating');
+    $categoryTitle = $request->input('category');
+
 
     $query = Game::query();
 
@@ -107,12 +110,76 @@ public function search(Request $request) {
             }
         });
     }
+    // إضافة شرط category
+    if ($categoryTitle) {
+        $query->whereHas('category', function ($q) use ($categoryTitle) {
+            $q->where('title', $categoryTitle);
+        });
+    }
 
     $games = $query->get();
-    return response()->json($games);
+    return $this->apiResponse($games);
+
 }
 
 
+public function search2(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255'
+    ]) ;
+    $title = $request->input('title') ;
+
+    $games = Game::where('title','LIKE',"$title%")->get() ;
+
+    if($games->isEmpty())
+    {
+        return $this->apiResponse(null, false, 'No Games match this name .', 400);
+    }
+   // return $this->apiResponse($games);
+   return GameResource2::collection($games) ;
+}
         
+
+
+///
+
+public function getCommentsByGameName(Request $request)
+      {
+          // تحقق من صحة البيانات المدخلة
+          $request->validate([
+              'title' => 'required|string',
+          ]);
+     
+          $title = $request->input('title');
+     
+          // ابحث عن اللعبة حسب الاسم
+          $game = Game::where('title', $title)->first();
+     
+          if (!$game) {
+              return response()->json([
+                  'success' => false,
+                  'error' => 'Game not found',
+              ], 404);
+          }
+     
+          // استرجع التعليقات مع بيانات المستخدمين
+          $comments = $game->reviewings()->with('user:id,name')->get(['user_id', 'rating', 'comment']);
+     
+          // تحويل النتائج إلى مصفوفة بسيطة
+          $result = $comments->map(function ($review) {
+              return [
+                  'user_name' => $review->user->name,
+                  'rating' => $review->rating,
+                  'comment' => $review->comment,
+              ];
+          });
+     
+          return response()->json([
+            'success' => true,
+            'data' => $result,
+        ]);
+       
+      }
      }
     

@@ -37,6 +37,10 @@ Route::post('getGamesByCategory',[App\Http\Controllers\Api\GameController::class
 Route::get('MostFollow',[App\Http\Controllers\Api\GameController::class,'MostFollow']) ;
 Route::post('UpdateUserName',[App\Http\Controllers\Api\UserController::class,'UpdateUserName']) ;
 Route::post('search', [App\Http\Controllers\Api\GameController::class, 'search']);
+Route::post('search2', [App\Http\Controllers\Api\GameController::class, 'search2']);
+
+Route::post('AddOrUpdateComment', [App\Http\Controllers\Api\ReviewingController::class,'addOrUpdateComment']);
+Route::post('getCommentsByGameName', [App\Http\Controllers\Api\GameController::class, 'getCommentsByGameName']);
 
 
  }) ;

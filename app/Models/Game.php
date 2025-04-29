@@ -25,7 +25,17 @@ class Game extends Model
        'category_id',
        'price',
        	'type',
-       // 'url_download'
+      'url_download',
+      'long_description',
+      'Memory',
+      'Storage' ,
+      'Developed_by',
+      'Platform',
+      'status',
+      'publisher',
+      'Graphics',
+      'Genre',
+      'ReleasedOn'
     ] ;
 
     protected $casts = ['image'=> 'array'] ; 
