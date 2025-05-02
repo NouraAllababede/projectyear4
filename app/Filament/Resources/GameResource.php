@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput; 
+use Filament\Forms\Components\DatePicker ;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
@@ -64,14 +65,59 @@ class GameResource extends Resource
                     ->required() ,
 
     
-                    MarkdownEditor::make('description')->required()           
+                    MarkdownEditor::make('long_description')->required()           
 ,                    
                     TextInput::make('url_video')->required()
                     ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
 
-                    /*TextInput::make('url_download')->required()
+                    TextInput::make('url_download')->required()
                     ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
-*/
+
+
+                    TextInput::make('description')->required()
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+                    TextInput::make('Memory')->required()
+                    ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+
+                    TextInput::make('Storage') // إضافة حقل Storage
+                      ->numeric() // التأكد من أن الإدخال هو عدد
+                      ->label('Storage')
+                      ->required()
+                      ,
+                      DatePicker::make('ReleasedOn')
+                      ->label('ReleasedOn Date')
+                      ->required(),
+
+
+                      TextInput::make('Developed_by')->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+                      TextInput::make('Platform')->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+                      TextInput::make('publisher')->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+  
+
+                      TextInput::make('Graphics')->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+  
+                      TextInput::make('Genre')->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+                    
+                      Select::make('status')
+                      ->label('status')
+                      ->options([
+                          'Live' => 'Live',
+                          'NotLive' => 'NotLive',
+                      ])
+                      ->required()
+                      ->extraAttributes(['style'=>'color : #FFD700 ; background-color: rgba(0,0 ,255.1,0.1);']),
+
+                     
+
                     Select::make('type')
                     ->label('Type')
                     ->options([

@@ -33,7 +33,7 @@ class AllGameResource extends JsonResource
           'status'=>$this->status,
           'publisher'=>$this->publisher,
           'Graphics'=>$this->Graphics,
-          'Genre'=>$this->Genre,
+          //'Genre'=>$this->Genre,
           'ReleasedOn'=>$this->ReleasedOn
                 ];
     }

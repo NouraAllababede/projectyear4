@@ -24,5 +24,7 @@ class UserSeeder extends Seeder
             'gender'=>'fmale',
             
             ]);
+
+           
     }
 }
