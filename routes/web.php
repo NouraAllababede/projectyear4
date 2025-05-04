@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Filament ;
+use App\Http\Controllers\DatabaseImportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,3 +41,6 @@ Route::get('/all', [App\Http\Controllers\GameController::class, 'index'])->middl
 
 Route::get('/games', [App\Http\Controllers\GaController::class, 'index']);
 Route::get('/games/{id}', [App\Http\Controllers\GaController::class, 'show']);
+
+
+
