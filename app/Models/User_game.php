@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User ;
 use App\Models\Game ;
+use Illuminate\Support\Str ;
+
+
 
 class User_game extends Model
 {
     use HasFactory;
+
+    
+    protected $table = "user-games" ;
+
     protected $fillable = [
         'uuid',
         'user_id',
