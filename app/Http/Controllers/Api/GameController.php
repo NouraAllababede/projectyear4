@@ -45,16 +45,20 @@ class GameController extends Controller
     
      public function getGamesByCategory(request $request) {
 
-       $uuid = Category::where('title',$request->title)->get()->pluck('uuid')->first() ; 
-  
-
-         $category = Category::with('games')->where('uuid', $uuid)->first();
-         if (!$category) {
-             return response()->json(['message' => 'Category not found'], 404);
-         }
-         return AllGameResource::collection($category->games);
-        
-        }
+        $uuid = Category::where('title',$request->title)->get()->pluck('uuid')->first() ; 
+   
+          if($uuid){
+ 
+          $category = Category::with('games')->where('uuid', $uuid)->get()->first();
+          if (!$category) {
+              return response()->json(['message' => 'Category not found'], 404);
+          }
+          return AllGameResource::collection($category->games);
+         
+         }else{
+             return response()->json(['message' => 'uuid not found'], 404);
+ 
+         }}
        
 
 
