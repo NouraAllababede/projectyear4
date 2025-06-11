@@ -49,7 +49,8 @@ class GameController extends Controller
    
           if($uuid){
  
-          $category = Category::with('games')->where('uuid', $uuid)->get()->first();
+          $category = Category::with('games')->where('uuid', $uuid)->get();
+          
           if (!$category) {
               return response()->json(['message' => 'Category not found'], 404);
           }
