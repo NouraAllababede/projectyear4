@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviewings', function (Blueprint $table) {
             $table->id();
-            $table->uuid() ;
+            $table->uuid('uuid') ;
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('game_id')->references('id')->on('games')->onDelete('cascade');
             $table->integer('rating') ;

@@ -15,19 +15,13 @@ return new class extends Migration
            $table->string('url_download') ;
             $table->text('long_description') ; 
             $table->integer('Memory') ;
-            $table->double('Storage') ;
+            $table->float('Storage') ;
              $table->string('Developed_by') ;
              $table->string('Platform') ;
              $table->enum('status',['Live','NotLive'])->default('Live') ;
              $table->string('publisher') ;
              $table->string('Graphics') ;
-             $table->string('Genre') ;
-
-
-
-
-        
-
+             $table->string('Genre');
 
         });
     }

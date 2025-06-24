@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid() ;
             $table->string('title') ;
-            $table->double('size') ;
+            $table->float('size') ;
             $table->string('description') ;
             $table->json('image') ;
             $table->string('url_video') ;
