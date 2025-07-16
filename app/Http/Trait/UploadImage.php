@@ -14,6 +14,7 @@ trait UploadImage
       return $url ;
 
     }
+    
 
     public function upload($img ,$folderName)
     {

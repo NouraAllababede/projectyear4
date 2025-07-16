@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\User_game ;
+use App\Models\UserGame ;
 use App\Models\Reviewing ;
 use App\Models\Game ;
 
@@ -50,8 +50,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function user_games(){
-        return $this->hasMany(User_game::class) ;
+    public function UserGame(){
+        return $this->hasMany(UserGame::class) ;
     }
 
     public function reviewings(){
@@ -59,6 +59,6 @@ class User extends Authenticatable
     }
 
     public function games(){
-        return $this->belongsToMany(Game::class,'user-games') ;
+        return $this->belongsToMany(Game::class,'Usergame') ;
     }
 }

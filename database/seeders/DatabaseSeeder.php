@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\CategorySeeder ;
 use Database\Seeders\GameSeeder ;
 use Database\Seeders\ReviewingSeeder ;
-use Database\Seeders\User_gameSeeder ;
+use Database\Seeders\UserGameSeeder ;
 use Database\Seeders\UserSeeder ;
 
 
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             GameSeeder::class,
             UserSeeder::class,
-            User_gameSeeder::class,
+            UserGameSeeder::class,
             ReviewingSeeder::class,
         ]);
     }

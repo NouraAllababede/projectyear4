@@ -26,15 +26,15 @@ class AllGameResource extends JsonResource
             'category'=>$this->category->title ,
             'type'=>$this->type ,
             'long_description'=>$this->long_description,
-          'Memory'=>$this->Memory,
-          'Storage'=>$this->Storage,
-          'Developed_by'=>$this->Developed_by,
-          'Platform'=>$this->Platform,
-          'status'=>$this->status,
-          'publisher'=>$this->publisher,
-          'Graphics'=>$this->Graphics,
+            'Memory'=>$this->Memory,
+            'Storage'=>$this->Storage,
+            'Developed_by'=>$this->Developed_by,
+            'Platform'=>$this->Platform,
+            'status'=>$this->status,
+           'publisher'=>$this->publisher,
+           'Graphics'=>$this->Graphics,
           //'Genre'=>$this->Genre,
-          'ReleasedOn'=>$this->ReleasedOn
+           'ReleasedOn'=>$this->ReleasedOn
                 ];
     }
 }

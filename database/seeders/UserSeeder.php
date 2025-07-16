@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
                 'name' =>'yara ali' ,
                 'email'=>'yara125@gmail.com',
                 'password'=> '123456789',
-               'age' => 17,
+                'age' => 17,
                 'gender'=>'fmale',
                 'type'=>'player'
                 

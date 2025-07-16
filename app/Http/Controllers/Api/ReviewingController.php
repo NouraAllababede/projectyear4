@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reviewing;
+use App\Models\Game;
 use App\Http\Trait\GeneralTrait;
 
 
@@ -13,32 +14,52 @@ class ReviewingController extends Controller
 {
     use GeneralTrait;
     
-public function addOrUpdateComment(Request $request)
-{
-    $request->validate([
-        'comment' => 'required|string|max:255|regex:/[a-z]/',
-    ]);
-
-    $userId = Auth::id();
-    $comment = $request->input('comment');
-
-    // Check for the existing comment by the user
-    $reviewing = Reviewing::where('user_id', $userId)->first();
-
-    if ($reviewing) {
-        // Update the existing comment
-        $reviewing->comment = $comment;
-        $reviewing->save();
-    } else {
-        // Create a new comment
-        Reviewing::create([
-            'user_id' => $userId,
-            'comment' => $comment,
-        ]);
+    public function addOrUpdateComment(Request $request)
+    {
+       $request->validate([
+          'comment' => 'required|string|max:255', // تمت إزالة regex
+          'title' => 'required|string|exists:games,title'
+          ]);
+    
+         $userId = Auth::id();
+       if (!$userId) {
+       return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    
+        $comment = $request->input('comment');
+         $title = $request->input('title');
+    
+         $game = Game::where('title', $title)->first();
+    
+       if (!$game) {
+       return response()->json(['message' => 'Game not found'], 404);
+        }
+    
+      $gameId = $game->id;
+    
+        $reviewing = Reviewing::where('user_id', $userId)
+                               ->where('game_id', $gameId)
+                               ->first();
+    
+       if ($reviewing) {
+          $reviewing->comment = $comment;
+          $reviewing->save();
+         } else {
+              Reviewing::create([
+               'user_id' => $userId,
+                'game_id' => $gameId,
+                'rating' => 1,  // ← هنا أضفت القيمة 1 لحقل rating
+                'comment'=>$comment,
+         ]);
+       }
+    
+      $data = [
+           'comment' => $comment,
+           'game_title' => $title,
+           'game_id' => $gameId
+          ];
+         return $this->apiResponse($data, true, 'Comment added/updated successfully', 200);
     }
-        $data = ['comment'=>$comment] ;
-    return $this->apiResponse($data);
-}
 
     /**
      * Display a listing of the resource.

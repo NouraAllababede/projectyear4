@@ -1682,7 +1682,7 @@ class GameSeeder extends Seeder
         'description'=>'An online competitive horse riding game inspired by traditional equestrian disciplines.',
         'image'=>json_encode(['url' =>'games/images/J8C6c3aoaaEZdSnedyKqmSulT71JYu-metaNjA0MzI2MTU3ODU2NjAyMDYxOS5qcGc=-.jpg']),
         'url_video'=>'https://www.freetogame.com/open/riding-club-championships',
-        'category_id'=>21,
+        'category_id'=>20,
     
         'type'=>'freement',
         'url_download'=>'https://www.freetogame.com/riding-club-championships',

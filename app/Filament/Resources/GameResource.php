@@ -157,12 +157,12 @@ class GameResource extends Resource
             ,
                 TextColumn::make('size'),
                 ImageColumn::make('image')
-              ->label('image')
-              ->url(fn($record)=> Storage::url($record->image[0]) )
-              ->default(fn($record)=>$record->name)
-              ->size(50)
-          ,
-
+                ->label('image')
+                ->url(fn($record) => Storage::url($record->image[0]['url'] ?? ''))
+                ->default(fn($record)=>$record->name)
+                ->size(50)
+              ,
+ 
                 TextColumn::make('price'),
                 TextColumn::make('type'),
                 TextColumn::make('category.title')
@@ -207,3 +207,5 @@ class GameResource extends Resource
     }
    
 }
+
+

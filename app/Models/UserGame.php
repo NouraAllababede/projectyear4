@@ -10,12 +10,12 @@ use Illuminate\Support\Str ;
 
 
 
-class User_game extends Model
+class UserGame extends Model
 {
-    use HasFactory;
+     use HasFactory;
 
     
-    protected $table = "user-games" ;
+    protected $table = "Usergame" ;
 
     protected $fillable = [
         'uuid',

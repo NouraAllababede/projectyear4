@@ -42,27 +42,30 @@ class GameController extends Controller
       $game = Game::where('uuid',$request->uuid)->first() ;
        return new AllGameResource($game) ;
      }
-    
-     public function getGamesByCategory(request $request) {
 
-        $uuid = Category::where('title',$request->title)->get()->pluck('uuid')->first() ; 
-   
-          if($uuid){
- 
-          $category = Category::with('games')->where('uuid', $uuid)->get();
-          
-          if (!$category) {
-              return response()->json(['message' => 'Category not found'], 404);
-          }
-          return AllGameResource::collection($category->games);
-         
-         }else{
-             return response()->json(['message' => 'uuid not found'], 404);
- 
-         }}
-       
-
-
+     public function getGamesByCategory(Request $request)
+     {
+         if (!$request->has('title')) {
+             return response()->json(['message' => 'Title is required'], 400);
+         }
+     
+         // الحصول على UUID بناءً على عنوان التصنيف
+         $uuid = Category::where('title', $request->title)->pluck('uuid')->first();
+     
+         if (!$uuid) {
+             return response()->json(['message' => 'Category uuid not found'], 404);
+         }
+     
+         // جلب التصنيف مع الألعاب
+         $category = Category::with('games')->where('uuid', $uuid)->first();
+     
+         if (!$category) {
+             return response()->json(['message' => 'Category not found'], 404);
+         }
+     
+         return AllGameResource::collection($category->games);
+     }
+     
 
 
          

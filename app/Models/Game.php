@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User_game ;
+use App\Models\UserGame ;
 use App\Models\Reviewing ;
 use App\Models\User ;
 use Illuminate\Database\Eloquent\SoftDeletes ;
@@ -53,11 +53,11 @@ class Game extends Model
     } 
     
     public function users(){
-        return $this->belongsToMany(User::class,'user-games') ;
+        return $this->belongsToMany(User::class,'Usergame') ;
     }
 
-    public function user_games(){
-        return $this->hasMany(User_game::class,) ;
+    public function UserGame(){
+        return $this->hasMany(UserGame::class,) ;
     }
 
     public function category(){
