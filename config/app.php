@@ -122,7 +122,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY'),  // تأكد من أنك قمت بتوليد APP_KEY باستخدام php artisan key:generate
 
     'cipher' => 'AES-256-CBC',
 
@@ -140,7 +140,7 @@ return [
     */
 
     'maintenance' => [
-        'driver' => 'file',
+        'driver' => 'file', // إذا كنت تستخدم Redis يمكنك إلغاء تعليق السطر التالي
         // 'store' => 'redis',
     ],
 
@@ -155,21 +155,24 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Package Service Providers...
-         */
+    'providers' => array_merge(
+        ServiceProvider::defaultProviders()->toArray(),
+        [
+            /*
+             * Package Service Providers...
+             */
 
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\Filament\AdminPanelProvider::class,
-        App\Providers\RouteServiceProvider::class,
-    ])->toArray(),
+            /*
+             * Application Service Providers...
+             */
+            App\Providers\AppServiceProvider::class,
+            App\Providers\AuthServiceProvider::class,
+            // App\Providers\BroadcastServiceProvider::class,
+            App\Providers\EventServiceProvider::class,
+            App\Providers\Filament\AdminPanelProvider::class, // تأكد من أنك بحاجة لهذه الحزمة
+            App\Providers\RouteServiceProvider::class,
+        ]
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -182,8 +185,12 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
+    'aliases' => array_merge(
+        Facade::defaultAliases()->toArray(),
+        [
+            // إضافة أسماء مستعارة خاصة بك إذا كنت بحاجة
+            // 'Example' => App\Facades\Example::class,
+        ]
+    ),
 
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Http\Trait;
 
 use GuzzleHttp\Client;
 use Google_Client;
